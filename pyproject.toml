@@ -1,0 +1,40 @@
+[project]
+name = "taste-2"
+version = "0.1.0"
+description = "TASTE variant 2 — semantic-heavy (LanceDB, Qwen3 embed, hybrid RRF, LLM judge)"
+requires-python = ">=3.11"
+dependencies = [
+    "fastapi>=0.110",
+    "pydantic>=2.6",
+    "fastembed>=0.6",
+    "lancedb>=0.10",
+    "pyarrow>=16",
+    "mcp>=2.0",
+    "httpx>=0.27",
+]
+
+[project.optional-dependencies]
+serve = ["granian>=1.6"]
+dev = ["pytest>=8.0", "httpx>=0.27"]
+
+[project.scripts]
+taste = "taste.cli:main"
+
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools]
+packages = ["taste"]
+
+[tool.pytest.ini_options]
+markers = ["slow: loads the real Qwen3 embedding model (skipped if unavailable)"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "B", "UP"]
+ignore = ["E731", "E501", "UP042"]
+
